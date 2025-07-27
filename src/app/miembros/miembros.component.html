@@ -1,0 +1,141 @@
+<div class="container-fluid py-4">
+  <h1 class="mb-4">Gestión de Miembros</h1>
+
+  <app-data-table
+    [data]="miembros"
+    [columns]="columns"
+    [title]="'Miembros'"
+    [loading]="loading"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)"
+    (create)="onCreate()">
+  </app-data-table>
+
+  <app-modal-form
+    [title]="modalTitle"
+    [visible]="modalVisible"
+    [loading]="formSubmitting"
+    (close)="onCloseModal()"
+    (submit)="onSubmitForm()">
+
+    <form [formGroup]="miembroForm" class="miembro-form">
+      <div class="form-row">
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="nombre">Nombre</label>
+            <input type="text" id="nombre" formControlName="nombre" class="form-control"
+                  [ngClass]="{'is-invalid': miembroForm.get('nombre')?.invalid && miembroForm.get('nombre')?.touched}">
+            <div class="invalid-feedback" *ngIf="miembroForm.get('nombre')?.invalid && miembroForm.get('nombre')?.touched">
+              El nombre es requerido
+            </div>
+          </div>
+        </div>
+
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="apellido">Apellido</label>
+            <input type="text" id="apellido" formControlName="apellido" class="form-control"
+                  [ngClass]="{'is-invalid': miembroForm.get('apellido')?.invalid && miembroForm.get('apellido')?.touched}">
+            <div class="invalid-feedback" *ngIf="miembroForm.get('apellido')?.invalid && miembroForm.get('apellido')?.touched">
+              El apellido es requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="cedula">Cédula</label>
+            <input type="text" id="cedula" formControlName="cedula" class="form-control" placeholder="000-0000000-0"
+                  [ngClass]="{'is-invalid': miembroForm.get('cedula')?.invalid && miembroForm.get('cedula')?.touched}">
+            <small class="form-text text-muted">Formato requerido: 000-0000000-0</small>
+            <div class="invalid-feedback" *ngIf="miembroForm.get('cedula')?.invalid && miembroForm.get('cedula')?.touched">
+              <span *ngIf="miembroForm.get('cedula')?.errors?.['required']">La cédula es requerida</span>
+              <span *ngIf="miembroForm.get('cedula')?.errors?.['pattern']">La cédula debe tener el formato 000-0000000-0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="sexo">Sexo</label>
+            <select id="sexo" formControlName="sexo" class="form-select"
+                   [ngClass]="{'is-invalid': miembroForm.get('sexo')?.invalid && miembroForm.get('sexo')?.touched}">
+              <option value="">Seleccione...</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Femenino">Femenino</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="miembroForm.get('sexo')?.invalid && miembroForm.get('sexo')?.touched">
+              El sexo es requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="fechaNacimiento">Fecha de Nacimiento</label>
+            <input type="date" id="fechaNacimiento" formControlName="fechaNacimiento" class="form-control"
+                  [ngClass]="{'is-invalid': miembroForm.get('fechaNacimiento')?.invalid && miembroForm.get('fechaNacimiento')?.touched}">
+            <div class="invalid-feedback" *ngIf="miembroForm.get('fechaNacimiento')?.invalid && miembroForm.get('fechaNacimiento')?.touched">
+              La fecha de nacimiento es requerida
+            </div>
+          </div>
+        </div>
+
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="fechaIngreso">Fecha de Ingreso</label>
+            <input type="date" id="fechaIngreso" formControlName="fechaIngreso" class="form-control"
+                  [ngClass]="{'is-invalid': miembroForm.get('fechaIngreso')?.invalid && miembroForm.get('fechaIngreso')?.touched}">
+            <div class="invalid-feedback" *ngIf="miembroForm.get('fechaIngreso')?.invalid && miembroForm.get('fechaIngreso')?.touched">
+              La fecha de ingreso es requerida
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="direccion">Dirección</label>
+        <input type="text" id="direccion" formControlName="direccion" class="form-control"
+              [ngClass]="{'is-invalid': miembroForm.get('direccion')?.invalid && miembroForm.get('direccion')?.touched}">
+        <div class="invalid-feedback" *ngIf="miembroForm.get('direccion')?.invalid && miembroForm.get('direccion')?.touched">
+          La dirección es requerida
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="telefono">Teléfono</label>
+            <input type="tel" id="telefono" formControlName="telefono" class="form-control"
+                  [ngClass]="{'is-invalid': miembroForm.get('telefono')?.invalid && miembroForm.get('telefono')?.touched}">
+            <div class="invalid-feedback" *ngIf="miembroForm.get('telefono')?.invalid && miembroForm.get('telefono')?.touched">
+              El teléfono es requerido
+            </div>
+          </div>
+        </div>
+
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="correo">Correo Electrónico</label>
+            <input type="email" id="correo" formControlName="correo" class="form-control"
+                  [ngClass]="{'is-invalid': miembroForm.get('correo')?.invalid && miembroForm.get('correo')?.touched}">
+            <div class="invalid-feedback" *ngIf="miembroForm.get('correo')?.invalid && miembroForm.get('correo')?.touched">
+              <span *ngIf="miembroForm.get('correo')?.errors?.['required']">El correo es requerido</span>
+              <span *ngIf="miembroForm.get('correo')?.errors?.['email']">Ingrese un correo válido</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-check">
+        <input type="checkbox" id="activo" formControlName="activo" class="form-check-input">
+        <label class="form-check-label" for="activo">Miembro Activo</label>
+      </div>
+    </form>
+
+  </app-modal-form>
+</div>

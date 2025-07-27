@@ -1,0 +1,50 @@
+@import '../shared/styles/form-styles.css';
+
+h1 {
+  color: #2a4d8f;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.miembro-form {
+  padding: 0.5rem;
+}
+
+/* Add some spacing between form sections */
+.form-row + .form-row,
+.form-group + .form-row,
+.form-row + .form-group {
+  margin-top: 1rem;
+}
+
+/* Style the checkbox to match the form theme */
+.form-check {
+  margin-top: 1.5rem;
+}
+
+.form-check-input:checked {
+  background-color: #2a4d8f;
+  border-color: #2a4d8f;
+}
+
+/* Add animation to form elements */
+.form-control, .form-select {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #2a4d8f;
+  box-shadow: 0 0 0 0.2rem rgba(42, 77, 143, 0.25);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

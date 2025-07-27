@@ -1,0 +1,67 @@
+@import '../shared/styles/form-styles.css';
+
+h1 {
+  color: #2a4d8f;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.transaccion-form {
+  padding: 0.5rem;
+}
+
+/* Add some spacing between form sections */
+.form-row + .form-row,
+.form-group + .form-row,
+.form-row + .form-group {
+  margin-top: 1rem;
+}
+
+/* Style the select dropdown */
+.form-select {
+  background-position: right 0.75rem center;
+  background-size: 16px 12px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-select:focus {
+  border-color: #2a4d8f;
+  box-shadow: 0 0 0 0.2rem rgba(42, 77, 143, 0.25);
+}
+
+/* Style the input group for currency */
+.input-group-text {
+  background-color: #f8f9fa;
+  border: 1px solid #ced4da;
+  border-right: none;
+  color: #495057;
+  font-weight: 500;
+}
+
+/* Style the textarea */
+textarea.form-control {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Add animation to form elements */
+.form-control, .form-select {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: #2a4d8f;
+  box-shadow: 0 0 0 0.2rem rgba(42, 77, 143, 0.25);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}

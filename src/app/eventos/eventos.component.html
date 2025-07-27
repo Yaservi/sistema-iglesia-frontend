@@ -1,0 +1,74 @@
+<div class="container-fluid py-4">
+  <h1 class="mb-4">Gestión de Eventos</h1>
+
+  <app-data-table
+    [data]="eventos"
+    [columns]="columns"
+    [title]="'Eventos'"
+    [loading]="loading"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)"
+    (create)="onCreate()">
+  </app-data-table>
+
+  <app-modal-form
+    [title]="modalTitle"
+    [visible]="modalVisible"
+    [loading]="formSubmitting"
+    (close)="onCloseModal()"
+    (submit)="onSubmitForm()">
+
+    <form [formGroup]="eventoForm" class="evento-form">
+      <div class="form-group">
+        <label class="form-label" for="nombre">Nombre del Evento</label>
+        <input type="text" id="nombre" formControlName="nombre" class="form-control"
+              [ngClass]="{'is-invalid': eventoForm.get('nombre')?.invalid && eventoForm.get('nombre')?.touched}">
+        <div class="invalid-feedback" *ngIf="eventoForm.get('nombre')?.invalid && eventoForm.get('nombre')?.touched">
+          El nombre del evento es requerido
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="tipo">Tipo de Evento</label>
+            <select id="tipo" formControlName="tipo" class="form-select"
+                   [ngClass]="{'is-invalid': eventoForm.get('tipo')?.invalid && eventoForm.get('tipo')?.touched}">
+              <option value="">Seleccione...</option>
+              <option value="Culto">Culto</option>
+              <option value="Conferencia">Conferencia</option>
+              <option value="Taller">Taller</option>
+              <option value="Retiro">Retiro</option>
+              <option value="Actividad Social">Actividad Social</option>
+              <option value="Otro">Otro</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="eventoForm.get('tipo')?.invalid && eventoForm.get('tipo')?.touched">
+              El tipo de evento es requerido
+            </div>
+          </div>
+        </div>
+
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="fecha">Fecha del Evento</label>
+            <input type="date" id="fecha" formControlName="fecha" class="form-control"
+                  [ngClass]="{'is-invalid': eventoForm.get('fecha')?.invalid && eventoForm.get('fecha')?.touched}">
+            <div class="invalid-feedback" *ngIf="eventoForm.get('fecha')?.invalid && eventoForm.get('fecha')?.touched">
+              La fecha del evento es requerida
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="lugar">Lugar</label>
+        <input type="text" id="lugar" formControlName="lugar" class="form-control"
+              [ngClass]="{'is-invalid': eventoForm.get('lugar')?.invalid && eventoForm.get('lugar')?.touched}">
+        <div class="invalid-feedback" *ngIf="eventoForm.get('lugar')?.invalid && eventoForm.get('lugar')?.touched">
+          El lugar del evento es requerido
+        </div>
+      </div>
+    </form>
+
+  </app-modal-form>
+</div>

@@ -1,0 +1,71 @@
+<div class="container-fluid py-4">
+  <h1 class="mb-4">Gestión de Bautizos</h1>
+
+  <app-data-table
+    [data]="bautizos"
+    [columns]="columns"
+    [title]="'Bautizos'"
+    [loading]="loading"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)"
+    (create)="onCreate()">
+  </app-data-table>
+
+  <app-modal-form
+    [title]="modalTitle"
+    [visible]="modalVisible"
+    [loading]="formSubmitting"
+    (close)="onCloseModal()"
+    (submit)="onSubmitForm()">
+
+    <form [formGroup]="bautizoForm" class="bautizo-form">
+      <div class="form-group">
+        <label class="form-label" for="miembroId">Miembro</label>
+        <select id="miembroId" formControlName="miembroId" class="form-select"
+               [ngClass]="{'is-invalid': bautizoForm.get('miembroId')?.invalid && bautizoForm.get('miembroId')?.touched}">
+          <option value="">Seleccione un miembro...</option>
+          <option *ngFor="let miembro of miembros" [value]="miembro.id">
+            {{ miembro.nombre }} {{ miembro.apellido }}
+          </option>
+        </select>
+        <div class="invalid-feedback" *ngIf="bautizoForm.get('miembroId')?.invalid && bautizoForm.get('miembroId')?.touched">
+          El miembro es requerido
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="fecha">Fecha del Bautizo</label>
+            <input type="date" id="fecha" formControlName="fecha" class="form-control"
+                  [ngClass]="{'is-invalid': bautizoForm.get('fecha')?.invalid && bautizoForm.get('fecha')?.touched}">
+            <div class="invalid-feedback" *ngIf="bautizoForm.get('fecha')?.invalid && bautizoForm.get('fecha')?.touched">
+              La fecha del bautizo es requerida
+            </div>
+          </div>
+        </div>
+
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="lugar">Lugar</label>
+            <input type="text" id="lugar" formControlName="lugar" class="form-control"
+                  [ngClass]="{'is-invalid': bautizoForm.get('lugar')?.invalid && bautizoForm.get('lugar')?.touched}">
+            <div class="invalid-feedback" *ngIf="bautizoForm.get('lugar')?.invalid && bautizoForm.get('lugar')?.touched">
+              El lugar es requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="pastorOficiante">Pastor Oficiante</label>
+        <input type="text" id="pastorOficiante" formControlName="pastorOficiante" class="form-control"
+              [ngClass]="{'is-invalid': bautizoForm.get('pastorOficiante')?.invalid && bautizoForm.get('pastorOficiante')?.touched}">
+        <div class="invalid-feedback" *ngIf="bautizoForm.get('pastorOficiante')?.invalid && bautizoForm.get('pastorOficiante')?.touched">
+          El pastor oficiante es requerido
+        </div>
+      </div>
+    </form>
+
+  </app-modal-form>
+</div>

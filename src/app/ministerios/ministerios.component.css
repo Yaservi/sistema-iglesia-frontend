@@ -1,0 +1,86 @@
+@import '../shared/styles/form-styles.css';
+
+h1 {
+  color: #2a4d8f;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #2a4d8f;
+  border-radius: 3px;
+}
+
+.ministerio-form {
+  padding: 0.5rem;
+}
+
+/* Style the textarea */
+textarea.form-control {
+  resize: vertical;
+  min-height: 100px;
+  line-height: 1.5;
+  transition: all 0.3s ease;
+}
+
+textarea.form-control:focus {
+  min-height: 120px;
+  border-color: #2a4d8f;
+  box-shadow: 0 0 0 0.2rem rgba(42, 77, 143, 0.25);
+}
+
+/* Add animation to form elements */
+.form-control {
+  transition: all 0.3s ease;
+  border-width: 1px;
+}
+
+.form-control:focus {
+  border-color: #2a4d8f;
+  box-shadow: 0 0 0 0.2rem rgba(42, 77, 143, 0.25);
+  transform: translateY(-2px);
+}
+
+.form-label {
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 0.5rem;
+  transition: color 0.3s ease;
+}
+
+.form-control:focus + .form-label {
+  color: #2a4d8f;
+}
+
+/* Add some spacing between form sections */
+.form-group + .form-group {
+  margin-top: 1.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  textarea.form-control {
+    min-height: 80px;
+  }
+
+  textarea.form-control:focus {
+    min-height: 100px;
+  }
+}

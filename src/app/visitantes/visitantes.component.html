@@ -1,0 +1,93 @@
+<div class="container-fluid py-4">
+  <h1 class="mb-4">Gestión de Visitantes</h1>
+
+  <app-data-table
+    [data]="visitantes"
+    [columns]="columns"
+    [title]="'Visitantes'"
+    [loading]="loading"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)"
+    (create)="onCreate()">
+  </app-data-table>
+
+  <app-modal-form
+    [title]="modalTitle"
+    [visible]="modalVisible"
+    [loading]="formSubmitting"
+    (close)="onCloseModal()"
+    (submit)="onSubmitForm()">
+
+    <form [formGroup]="visitanteForm" class="visitante-form">
+      <div class="form-row">
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="nombre">Nombre</label>
+            <input type="text" id="nombre" formControlName="nombre" class="form-control"
+                  [ngClass]="{'is-invalid': visitanteForm.get('nombre')?.invalid && visitanteForm.get('nombre')?.touched}">
+            <div class="invalid-feedback" *ngIf="visitanteForm.get('nombre')?.invalid && visitanteForm.get('nombre')?.touched">
+              El nombre es requerido
+            </div>
+          </div>
+        </div>
+
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="apellido">Apellido</label>
+            <input type="text" id="apellido" formControlName="apellido" class="form-control"
+                  [ngClass]="{'is-invalid': visitanteForm.get('apellido')?.invalid && visitanteForm.get('apellido')?.touched}">
+            <div class="invalid-feedback" *ngIf="visitanteForm.get('apellido')?.invalid && visitanteForm.get('apellido')?.touched">
+              El apellido es requerido
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="telefono">Teléfono</label>
+            <input type="tel" id="telefono" formControlName="telefono" class="form-control"
+                  [ngClass]="{'is-invalid': visitanteForm.get('telefono')?.invalid && visitanteForm.get('telefono')?.touched}">
+            <div class="invalid-feedback" *ngIf="visitanteForm.get('telefono')?.invalid && visitanteForm.get('telefono')?.touched">
+              El teléfono es requerido
+            </div>
+          </div>
+        </div>
+
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="fechaVisita">Fecha de Visita</label>
+            <input type="date" id="fechaVisita" formControlName="fechaVisita" class="form-control"
+                  [ngClass]="{'is-invalid': visitanteForm.get('fechaVisita')?.invalid && visitanteForm.get('fechaVisita')?.touched}">
+            <div class="invalid-feedback" *ngIf="visitanteForm.get('fechaVisita')?.invalid && visitanteForm.get('fechaVisita')?.touched">
+              La fecha de visita es requerida
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="eventoId">Evento</label>
+        <select id="eventoId" formControlName="eventoId" class="form-select"
+               [ngClass]="{'is-invalid': visitanteForm.get('eventoId')?.invalid && visitanteForm.get('eventoId')?.touched}">
+          <option value="">Seleccione un evento...</option>
+          <option *ngFor="let evento of eventos" [value]="evento.id">
+            {{ evento.nombre }} ({{ evento.fecha | date:'dd/MM/yyyy' }})
+          </option>
+        </select>
+        <div class="invalid-feedback" *ngIf="visitanteForm.get('eventoId')?.invalid && visitanteForm.get('eventoId')?.touched">
+          El evento es requerido
+        </div>
+      </div>
+
+      <div *ngIf="loadingEventos" class="text-center mt-3">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Cargando eventos...</span>
+        </div>
+        <p class="mt-2">Cargando eventos...</p>
+      </div>
+    </form>
+
+  </app-modal-form>
+</div>

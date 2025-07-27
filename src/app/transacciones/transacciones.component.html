@@ -1,0 +1,86 @@
+<div class="container-fluid py-4">
+  <h1 class="mb-4">Gestión de Diezmos y Ofrendas</h1>
+
+  <app-data-table
+    [data]="transacciones"
+    [columns]="columns"
+    [title]="'Transacciones'"
+    [loading]="loading"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)"
+    (create)="onCreate()">
+  </app-data-table>
+
+  <app-modal-form
+    [title]="modalTitle"
+    [visible]="modalVisible"
+    [loading]="formSubmitting"
+    (close)="onCloseModal()"
+    (submit)="onSubmitForm()">
+
+    <form [formGroup]="transaccionForm" class="transaccion-form">
+      <div class="form-group">
+        <label class="form-label" for="miembroId">Miembro</label>
+        <select id="miembroId" formControlName="miembroId" class="form-select"
+               [ngClass]="{'is-invalid': transaccionForm.get('miembroId')?.invalid && transaccionForm.get('miembroId')?.touched}">
+          <option value="">Seleccione un miembro...</option>
+          <option *ngFor="let miembro of miembros" [value]="miembro.id">
+            {{ miembro.nombre }} {{ miembro.apellido }}
+          </option>
+        </select>
+        <div class="invalid-feedback" *ngIf="transaccionForm.get('miembroId')?.invalid && transaccionForm.get('miembroId')?.touched">
+          El miembro es requerido
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="tipo">Tipo de Transacción</label>
+            <select id="tipo" formControlName="tipo" class="form-select"
+                   [ngClass]="{'is-invalid': transaccionForm.get('tipo')?.invalid && transaccionForm.get('tipo')?.touched}">
+              <option value="">Seleccione...</option>
+              <option value="Diezmo">Diezmo</option>
+              <option value="Ofrenda">Ofrenda</option>
+              <option value="Donación">Donación</option>
+              <option value="Otro">Otro</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="transaccionForm.get('tipo')?.invalid && transaccionForm.get('tipo')?.touched">
+              El tipo de transacción es requerido
+            </div>
+          </div>
+        </div>
+
+        <div class="form-col">
+          <div class="form-group">
+            <label class="form-label" for="monto">Monto</label>
+            <div class="input-group">
+              <span class="input-group-text">$</span>
+              <input type="number" id="monto" formControlName="monto" class="form-control" min="0" step="0.01"
+                    [ngClass]="{'is-invalid': transaccionForm.get('monto')?.invalid && transaccionForm.get('monto')?.touched}">
+            </div>
+            <div class="invalid-feedback" *ngIf="transaccionForm.get('monto')?.invalid && transaccionForm.get('monto')?.touched">
+              <span *ngIf="transaccionForm.get('monto')?.errors?.['required']">El monto es requerido</span>
+              <span *ngIf="transaccionForm.get('monto')?.errors?.['min']">El monto debe ser mayor a 0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="fecha">Fecha</label>
+        <input type="date" id="fecha" formControlName="fecha" class="form-control"
+              [ngClass]="{'is-invalid': transaccionForm.get('fecha')?.invalid && transaccionForm.get('fecha')?.touched}">
+        <div class="invalid-feedback" *ngIf="transaccionForm.get('fecha')?.invalid && transaccionForm.get('fecha')?.touched">
+          La fecha es requerida
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="observacion">Observación</label>
+        <textarea id="observacion" formControlName="observacion" class="form-control" rows="3"></textarea>
+      </div>
+    </form>
+
+  </app-modal-form>
+</div>

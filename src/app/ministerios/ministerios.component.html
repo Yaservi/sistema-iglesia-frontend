@@ -1,0 +1,42 @@
+<div class="container-fluid py-4">
+  <h1 class="mb-4">Gestión de Ministerios</h1>
+
+  <app-data-table
+    [data]="ministerios"
+    [columns]="columns"
+    [title]="'Ministerios'"
+    [loading]="loading"
+    (edit)="onEdit($event)"
+    (delete)="onDelete($event)"
+    (create)="onCreate()">
+  </app-data-table>
+
+  <app-modal-form
+    [title]="modalTitle"
+    [visible]="modalVisible"
+    [loading]="formSubmitting"
+    (close)="onCloseModal()"
+    (submit)="onSubmitForm()">
+
+    <form [formGroup]="ministerioForm" class="ministerio-form">
+      <div class="form-group">
+        <label class="form-label" for="nombre">Nombre del Ministerio</label>
+        <input type="text" id="nombre" formControlName="nombre" class="form-control"
+              [ngClass]="{'is-invalid': ministerioForm.get('nombre')?.invalid && ministerioForm.get('nombre')?.touched}">
+        <div class="invalid-feedback" *ngIf="ministerioForm.get('nombre')?.invalid && ministerioForm.get('nombre')?.touched">
+          El nombre del ministerio es requerido
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="descripcion">Descripción</label>
+        <textarea id="descripcion" formControlName="descripcion" class="form-control" rows="4"
+                 [ngClass]="{'is-invalid': ministerioForm.get('descripcion')?.invalid && ministerioForm.get('descripcion')?.touched}"></textarea>
+        <div class="invalid-feedback" *ngIf="ministerioForm.get('descripcion')?.invalid && ministerioForm.get('descripcion')?.touched">
+          La descripción es requerida
+        </div>
+      </div>
+    </form>
+
+  </app-modal-form>
+</div>
